@@ -46,3 +46,37 @@ const updateProfile = () => {
         alert('user does not exist')
     }
 } 
+
+// delete user
+
+const deleteUser = () => {
+    const user = firebase.auth().currentUser;
+    
+    user.delete()
+        .then(() => {
+            alert('user deleted');
+        })
+        .catch(err => alert(err.message))
+}
+
+// verify email
+const verifyUser = () => {
+    const user = firebase.auth().currentUser;
+
+    user.sendEmailVerification()
+        .then(() => {
+            alert(`Email sent to ${ user.email }`);
+        })
+        .catch(err => alert(err.message));
+}
+
+// reset password
+const resetPass = () => {
+    const user = firebase.auth().currentUser;
+
+    firebase.auth().sendPasswordResetEmail(user.email)
+        .then(() => {
+            alert(`Email sent to ${ user.email }`)
+        })
+        .catch(err => alert(err.message));
+}
