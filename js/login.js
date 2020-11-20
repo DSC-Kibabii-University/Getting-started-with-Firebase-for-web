@@ -11,23 +11,38 @@ const loginUser = () => {
         .catch(err => alert(err.message));
 }
 
+// getting user profile
 const getUserProfile = () => {
-    let user = firebase.auth().currentUser;
+    const user = firebase.auth().currentUser;
 
-    if(user != null) {
-        console.log(user);
+    if( user != null ) {
+        console.log(user)
     }
-    else{
-        console.log('eerr')
+    else {
+        alert('user does not exist')
     }
 }
-// sign with Google
-// const signInWithGoogle = () => {
-//     const GOOGLE_AUTH_PROVIDER = new firebase.auth.GoogleAuthProvider();
-    
-//     firebase.auth().signInWithPopup(GOOGLE_AUTH_PROVIDER)
-//         .then(() => {
-//             window.location.assign('about.html');
-//         })
-//         .catch(err => alert(err.message));
-// }
+
+// logout user
+const logout = () => {
+    firebase.auth().signOut()
+        .then(() => {
+            alert('Logged out')
+        })
+        .catch(err => alert(err.message));
+}
+
+// updating user profile
+const updateProfile = () => {
+    const user = firebase.auth().currentUser;
+
+    if( user != null ) {
+        user.updateProfile({
+            displayName: 'Updated'
+        })
+        user.updateEmail('updating@gmail.com');
+    }
+    else {
+        alert('user does not exist')
+    }
+} 
